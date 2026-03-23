@@ -83,4 +83,45 @@ public class Service
         renting.Equipment.Status = EquipmentStatus.Available;
         Console.WriteLine("Equipment returned. Penalty: " + penalty);
     }
+    
+    public void ChangeEquipmentStatus(int equipmentId, EquipmentStatus status)
+    {
+        var equipment = EquipmentList.FirstOrDefault(e => e.Id == equipmentId);
+        if (equipment == null)
+        {
+            Console.WriteLine("Equipment not found.");
+            return;
+        }
+        var renting = RentingList.FirstOrDefault(r => r.Equipment.Id == equipmentId && r.IsActive);
+        if (renting != null)
+        {
+            Console.WriteLine("Changing equipment status failed. Equipment currently rented.");
+            return;
+        }
+        equipment.Status = status;
+    }
+    
+    public void ShowUserRentings(int userId)
+    {
+        foreach (var renting in RentingList.Where(renting => renting.User.Id == userId && renting.IsActive))
+        {
+            Console.WriteLine(renting);
+        }
+    }
+
+    public void ShowOverdueRentings()
+    {
+        foreach (var renting in RentingList.Where(r => r.IsActive && r.DateEnd < DateTime.Now))
+        {
+            Console.WriteLine(renting);
+        }
+    }
+
+    public void ShowReport()
+    {
+        Console.WriteLine("Users: " + Users.Count);
+        Console.WriteLine("Equipment: " + EquipmentList.Count);
+        Console.WriteLine("Available: " + EquipmentList.Count(e => e.Status == EquipmentStatus.Available));
+        Console.WriteLine("Active rentings: " + RentingList.Count(r => r.IsActive));
+    }
 }
