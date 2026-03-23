@@ -12,4 +12,32 @@ public class Service
         EquipmentList = new List<Equipment>();
         RentingList = new List<Renting>();
     }
+    
+    public void AddUser(User user)
+    {
+        Users.Add(user);
+    }
+    public void AddEquipment(Equipment equipment)
+    {
+        EquipmentList.Add(equipment);
+    }
+
+    public void ShowAllEquipment()
+    {
+        foreach (var item in EquipmentList)
+        {
+            Console.WriteLine(item);
+        }
+    }
+
+    public void ShowAvailableEquipment()
+    {
+        foreach (var item in EquipmentList)
+        {
+            if (item.Status == EquipmentStatus.Available)
+            {
+                Console.WriteLine(item);
+            }
+        }
+    }
 }
