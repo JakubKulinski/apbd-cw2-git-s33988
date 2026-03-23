@@ -14,4 +14,9 @@ public abstract class Equipment
         Id = IdCounter++;
         Status = EquipmentStatus.Available;
     }
+    
+    public override string ToString()
+    {
+        return "[" + Id + "] " + Name + " | Status: " + Status;
+    }
 }
