@@ -1,4 +1,4 @@
-﻿namespace ConsoleApp2;
+﻿namespace apbd_cw2_git_s33988;
 
 public abstract class User
 {
