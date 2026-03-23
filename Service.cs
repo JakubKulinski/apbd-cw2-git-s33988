@@ -68,6 +68,7 @@ public class Service
         var renting = new Renting(user, equipment, days);
         RentingList.Add(renting);
         equipment.Status = EquipmentStatus.Unavailable;
+        Console.WriteLine("Equipment rented.");
     }
     
     public void ReturnEquipment(int equipmentId)
