@@ -22,8 +22,19 @@ public class Renting
         DateEnd = DateStart.AddDays(days);
     }
 
-    public void Return()
+    public decimal Return()
     {
         ReturnDate = DateTime.Now;
+        var days = (ReturnDate.Value - DateEnd).Days;
+        if (days > 0)
+        {
+            return days * 10m;
+        }
+        return 0m;
+    }
+    
+    public override string ToString()
+    {
+        return "[" + Id + "] " + User.Name + " " + User.Surname + " -> " + Equipment.Name;
     }
 }
