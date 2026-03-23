@@ -59,7 +59,7 @@ public class Service
         }
 
         var currentRenting = RentingList.Count(r => r.User.Id == user.Id);
-        if (currentRenting >= 3)
+        if (currentRenting >= user.MaxRentals)
         {
             Console.WriteLine("User exceeded rental limit.");
             return;
@@ -68,5 +68,19 @@ public class Service
         var renting = new Renting(user, equipment, days);
         RentingList.Add(renting);
         equipment.Status = EquipmentStatus.Unavailable;
+    }
+    
+    public void ReturnEquipment(int equipmentId)
+    {
+        var renting = RentingList.FirstOrDefault(r => r.Equipment.Id == equipmentId && r.IsActive);
+        if (renting == null)
+        {
+            Console.WriteLine("Active rental not found");
+            return;
+        }
+
+        var penalty = renting.Return();
+        renting.Equipment.Status = EquipmentStatus.Available;
+        Console.WriteLine("Equipment returned. Penalty: " + penalty);
     }
 }
