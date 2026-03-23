@@ -3,4 +3,6 @@
 public class Student : User
 {
     public Student(string name, string surname) : base(name, surname) { }
+    public override int MaxRentals => 2;
+    public override string UserType => "Student";
 }
